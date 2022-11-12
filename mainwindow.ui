@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>435</width>
-    <height>790</height>
+    <width>209</width>
+    <height>142</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(45, 45, 45);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -165,6 +168,10 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 12pt &quot;Segoe UI&quot;;</string>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="15,0,3">
        <property name="spacing">
         <number>0</number>
@@ -245,8 +252,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>284</width>
-                  <height>658</height>
+                  <width>93</width>
+                  <height>49</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -267,6 +274,9 @@
                  </property>
                  <item>
                   <widget class="QPlainTextEdit" name="chat_messages">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(55, 55, 55);</string>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
                    </property>
@@ -374,8 +384,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>284</width>
-                  <height>80</height>
+                  <width>93</width>
+                  <height>49</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -407,6 +417,9 @@
                      <width>16777215</width>
                      <height>16700000</height>
                     </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(55, 55, 55);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
@@ -533,13 +546,13 @@
               <widget class="QPushButton" name="send_button">
                <property name="minimumSize">
                 <size>
-                 <width>40</width>
-                 <height>40</height>
+                 <width>45</width>
+                 <height>45</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
+                 <width>80</width>
                  <height>16777215</height>
                 </size>
                </property>
