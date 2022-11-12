@@ -6,20 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
-    <height>142</height>
+    <width>414</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(45, 45, 45);</string>
+   <string notr="true">background-color: rgb(25, 25, 25);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QWidget" name="left_menu_container" native="true">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
         <number>0</number>
@@ -170,7 +174,8 @@
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 255, 255);
-font: 12pt &quot;Segoe UI&quot;;</string>
+font: 12pt &quot;Segoe UI&quot;;
+border-radius: 10px;</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="15,0,3">
        <property name="spacing">
@@ -252,8 +257,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>93</width>
-                  <height>49</height>
+                  <width>249</width>
+                  <height>548</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -275,7 +280,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
                  <item>
                   <widget class="QPlainTextEdit" name="chat_messages">
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(55, 55, 55);</string>
+                    <string notr="true">background-color: rgb(40, 40, 40);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
@@ -384,8 +389,8 @@ font: 12pt &quot;Segoe UI&quot;;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>93</width>
-                  <height>49</height>
+                  <width>249</width>
+                  <height>80</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -419,7 +424,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(55, 55, 55);</string>
+                    <string notr="true">background-color: rgb(40, 40, 40);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
@@ -520,6 +525,9 @@ font: 12pt &quot;Segoe UI&quot;;</string>
           </property>
           <item>
            <widget class="QFrame" name="send_button_subcontainer">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -544,6 +552,12 @@ font: 12pt &quot;Segoe UI&quot;;</string>
              </property>
              <item>
               <widget class="QPushButton" name="send_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>45</width>
@@ -555,6 +569,11 @@ font: 12pt &quot;Segoe UI&quot;;</string>
                  <width>80</width>
                  <height>16777215</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(55, 55, 55);
+border-color: rgb(70, 70, 70);</string>
                </property>
                <property name="text">
                 <string>Send</string>
