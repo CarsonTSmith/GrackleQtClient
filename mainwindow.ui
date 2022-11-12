@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>680</height>
+    <width>478</width>
+    <height>688</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,9 +40,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item alignment="Qt::AlignTop">
+       <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="left_menu_subcontainer" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,5,10">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,5">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -69,21 +69,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
             <property name="lineWidth">
              <number>0</number>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::PlainText</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <layout class="QVBoxLayout" name="verticalLayout_3"/>
            </widget>
           </item>
-          <item alignment="Qt::AlignTop">
+          <item alignment="Qt::AlignBottom">
            <widget class="QFrame" name="frame_2">
             <property name="maximumSize">
              <size>
@@ -101,61 +90,72 @@ font: 14pt &quot;Segoe UI&quot;;</string>
              <number>0</number>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_4">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
              <property name="topMargin">
               <number>0</number>
              </property>
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_3">
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item alignment="Qt::AlignBottom">
+              <widget class="QWidget" name="widget" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_15">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item alignment="Qt::AlignBottom">
+                 <widget class="QPushButton" name="join_voice_chat_button">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>65</width>
+                    <height>45</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 10pt &quot;Segoe UI&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(55, 55, 55);
+border-color: rgb(70, 70, 70);</string>
+                  </property>
+                  <property name="text">
+                   <string>Join Voice
+ Chat</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -257,8 +257,8 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>249</width>
-                  <height>548</height>
+                  <width>296</width>
+                  <height>556</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -389,9 +389,12 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>249</width>
+                  <width>296</width>
                   <height>80</height>
                  </rect>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
                  <property name="spacing">
@@ -572,8 +575,7 @@ border-radius: 10px;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(55, 55, 55);
-border-color: rgb(70, 70, 70);</string>
+background-color: rgb(55, 55, 55);</string>
                </property>
                <property name="text">
                 <string>Send</string>
