@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>451</width>
-    <height>869</height>
+    <width>435</width>
+    <height>790</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -227,7 +227,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QScrollArea" name="scrollArea">
+              <widget class="QScrollArea" name="chat_messages_scroll_container">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -240,13 +240,13 @@
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents">
+               <widget class="QWidget" name="chat_messages_scroll_subcontainer">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>300</width>
-                  <height>737</height>
+                  <width>284</width>
+                  <height>658</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -329,7 +329,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QFrame" name="frame_5">
+           <widget class="QFrame" name="send_buffer_subcontainer">
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -356,7 +356,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QScrollArea" name="scrollArea_2">
+              <widget class="QScrollArea" name="send_buffer_scroll_area_container">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -369,12 +369,12 @@
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_2">
+               <widget class="QWidget" name="send_buffer_scroll_area_subcontainer">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>300</width>
+                  <width>284</width>
                   <height>80</height>
                  </rect>
                 </property>
@@ -433,7 +433,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="righ_menu_container" native="true">
+     <widget class="QWidget" name="right_menu_container" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_7" stretch="15,0">
        <property name="spacing">
         <number>0</number>
@@ -488,7 +488,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widget_4" native="true">
+        <widget class="QWidget" name="send_button_container" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_9">
           <property name="spacing">
            <number>0</number>
@@ -506,7 +506,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QFrame" name="frame_7">
+           <widget class="QFrame" name="send_button_subcontainer">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
