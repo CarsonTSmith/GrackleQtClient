@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 bool MainWindow::ConnectToServer()
 {
     socket->connectToHost(QHostAddress::LocalHost, PORT);
-    //connect(socket, SIGNAL(readyRead()), this, SLOT(read_from_server()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(read_from_server()));
     socket->open(QIODevice::ReadWrite);
     if (socket->isOpen()) {
         return true;
