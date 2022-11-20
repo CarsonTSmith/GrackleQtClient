@@ -48,7 +48,6 @@ void MainWindow::on_send_button_clicked()
         return;
 
     msg = ui->send_buffer->toPlainText();
-    format_msg(msg);
     if (socket->ConnectedState) {
         socket->write(msg.toStdString().c_str());
         ui->send_buffer->clear();
@@ -57,7 +56,7 @@ void MainWindow::on_send_button_clicked()
 
 void MainWindow::read_from_server()
 {
-    QByteArray data, result;
+    QByteArray data;
     QString msgstr;
     int msglen, bytesrd = 0;
 
@@ -67,25 +66,6 @@ void MainWindow::read_from_server()
     if (!socket->isOpen())
         return;
 
-    msglen = socket->read(HEADERSZ).toInt();
-    while (bytesrd < msglen) {
-        result = socket->read(msglen - bytesrd);
-        data.append(result);
-        bytesrd += result.length();
-    }
-
-    msgstr = data;
+    data = socket->readAll();
     ui->chat_messages->appendPlainText(msgstr);
 }
-
-void MainWindow::format_msg(QString &str)
-{
-    add_header(str);
-}
-
-void MainWindow::add_header(QString &str)
-{
-    QString header = QString::number(str.length()).rightJustified(HEADERSZ, '0');
-    str.prepend(header);
-}
-

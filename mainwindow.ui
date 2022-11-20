@@ -257,7 +257,7 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>296</width>
+                  <width>298</width>
                   <height>556</height>
                  </rect>
                 </property>
@@ -389,7 +389,7 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>296</width>
+                  <width>298</width>
                   <height>80</height>
                  </rect>
                 </property>
@@ -532,10 +532,10 @@ border-radius: 10px;</string>
              <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
+             <enum>QFrame::Plain</enum>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <property name="spacing">
