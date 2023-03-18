@@ -91,7 +91,6 @@ void MainWindow::on_send_button_clicked()
 
 void MainWindow::read_from_server()
 {
-    QByteArray data, result;
     QString msgstr;
     int body_len, bytesrd = 0;
 
