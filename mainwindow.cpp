@@ -7,9 +7,6 @@
 #include <QString>
 #include <stdio.h>
 
-#define PORT 8085
-#define HEADERSZ 8
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -23,6 +20,43 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete socket;
+}
+
+int MainWindow::read_header()
+{
+    int total = 0;
+    QByteArray header;
+
+    while (total < HEADERSZ) {
+        header.append(socket->read(HEADERSZ - total));
+        total += header.length() - total;
+    }
+
+    return header.toInt();
+}
+
+QString MainWindow::read_body(const int body_len)
+{
+    int total = 0;
+    QByteArray body;
+
+    while (total < body_len) {
+        body.append(socket->read(body_len - total));
+        total += body.length() - total;
+    }
+
+    return body;
+}
+
+void MainWindow::format_msg(QString &str)
+{
+    add_header(str);
+}
+
+void MainWindow::add_header(QString &str)
+{
+    QString header = QString::number(str.length()).rightJustified(HEADERSZ, '0');
+    str.prepend(header);
 }
 
 bool MainWindow::ConnectToServer()
@@ -59,7 +93,7 @@ void MainWindow::read_from_server()
 {
     QByteArray data, result;
     QString msgstr;
-    int msglen, bytesrd = 0;
+    int body_len, bytesrd = 0;
 
     if (!socket)
         return;
@@ -67,25 +101,15 @@ void MainWindow::read_from_server()
     if (!socket->isOpen())
         return;
 
-    msglen = socket->read(HEADERSZ).toInt();
+    body_len = read_header();
+    msgstr   = read_body(body_len);
+    /*
     while (bytesrd < msglen) {
         result = socket->read(msglen - bytesrd);
         data.append(result);
         bytesrd += result.length();
     }
-
     msgstr = data;
+    */
     ui->chat_messages->appendPlainText(msgstr);
 }
-
-void MainWindow::format_msg(QString &str)
-{
-    add_header(str);
-}
-
-void MainWindow::add_header(QString &str)
-{
-    QString header = QString::number(str.length()).rightJustified(HEADERSZ, '0');
-    str.prepend(header);
-}
-
