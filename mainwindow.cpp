@@ -62,7 +62,7 @@ void MainWindow::add_header(QString &str)
 
 bool MainWindow::ConnectToServer()
 {
-    socket->connectToHost(QHostAddress::LocalHost, PORT);
+    socket->connectToHost("167.224.158.29", PORT);
     connect(socket, SIGNAL(readyRead()), this, SLOT(read_from_server()));
     socket->open(QIODevice::ReadWrite);
     if (socket->isOpen()) {
