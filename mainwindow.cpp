@@ -6,6 +6,7 @@
 #include <QIODevice>
 #include <QString>
 #include <stdio.h>
+#include <utilapiset.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -111,4 +112,5 @@ void MainWindow::read_from_server()
     msgstr = data;
     */
     ui->chat_messages->appendPlainText(msgstr);
+    Beep(1000, 500);
 }

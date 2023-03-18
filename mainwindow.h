@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QTcpSocket *socket;
+    QTcpSocket     *socket;
 
     void    format_msg(QString &str);
     void    add_header(QString &str);
