@@ -37,6 +37,7 @@ private:
     void    get_server_info();
     void    format_msg(QString &str);
     void    add_header(QString &str);
+    void    add_timestamp(QString &str);
     int     read_header();
     QString read_body(const int body_len);
     void    do_connect_to_server();

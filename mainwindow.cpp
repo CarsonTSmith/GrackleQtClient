@@ -6,6 +6,7 @@
 #include <memory>
 #include <QAbstractSocket>
 #include <QByteArray>
+#include <QDateTime>
 #include <QHostAddress>
 #include <QIODevice>
 #include <QString>
@@ -14,7 +15,7 @@
 #ifdef _WIN32
 #include <utilapiset.h>
 #include <processthreadsapi.h>
-#elif _LINUX
+#elif __linux__
 #include <stdlib.h>
 #endif
 
@@ -52,7 +53,7 @@ void MainWindow::get_server_info()
     if (result == QDialog::Rejected) {
 #ifdef _WIN32
         ExitProcess(0);
-#elif _LINUX
+#elif __linux__
         exit(0);
 #endif
     }
@@ -90,7 +91,16 @@ QString MainWindow::read_body(const int body_len)
 
 void MainWindow::format_msg(QString &str)
 {
+    add_timestamp(str);
     add_header(str);
+}
+
+void MainWindow::add_timestamp(QString &str)
+{
+    QDateTime date = QDateTime::currentDateTime();
+    QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
+    QByteArray formattedTimeMsg = formattedTime.toLocal8Bit();
+    str.prepend(formattedTimeMsg + "\n\n");
 }
 
 void MainWindow::add_header(QString &str)
