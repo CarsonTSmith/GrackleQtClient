@@ -8,9 +8,16 @@ CreateServerDialog::CreateServerDialog(QWidget *parent)
     , ui(new Ui::CreateServerDialog)
 {
     ui->setupUi(this);
+    connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(on_connect_button_clicked()));
 }
 
 CreateServerDialog::~CreateServerDialog()
 {
     delete ui;
 }
+
+void CreateServerDialog::on_connect_button_clicked()
+{
+    done(QDialog::Accepted);
+}
+

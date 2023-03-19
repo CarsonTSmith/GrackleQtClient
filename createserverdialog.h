@@ -1,6 +1,9 @@
 #ifndef CREATESERVERDIALOG_H
 #define CREATESERVERDIALOG_H
 
+#include "./ui_createserverdialog.h"
+#include "mainwindow.h"
+
 #include <QDialog>
 #include <QWidget>
 
@@ -16,8 +19,13 @@ public:
     CreateServerDialog(QWidget *parent = nullptr);
     ~CreateServerDialog();
 
+private slots:
+    void on_connect_button_clicked();
+
 private:
     Ui::CreateServerDialog *ui;
+
+    friend class MainWindow;
 };
 
 #endif // CREATESERVERDIALOG_H

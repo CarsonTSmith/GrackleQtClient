@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <memory>
 #include <QByteArray>
 #include <QMainWindow>
 #include <QTcpSocket>
@@ -29,10 +30,15 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket     *socket;
+    QString        ip;
+    int            port;
+    QString        username;
 
+    void    get_server_info();
     void    format_msg(QString &str);
     void    add_header(QString &str);
     int     read_header();
     QString read_body(const int body_len);
+    void    do_connect_to_server();
 };
 #endif // MAINWINDOW_H

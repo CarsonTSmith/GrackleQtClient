@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+
+#include "createserverdialog.h"
+
+#include <memory>
 #include <QAbstractSocket>
 #include <QByteArray>
 #include <QHostAddress>
 #include <QIODevice>
 #include <QString>
 #include <stdio.h>
-#include <utilapiset.h>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,13 +18,32 @@ MainWindow::MainWindow(QWidget *parent)
     , socket(new QTcpSocket)
 {
     ui->setupUi(this);
-    ConnectToServer();
+    do_connect_to_server();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete socket;
+}
+
+void MainWindow::do_connect_to_server()
+{
+    bool connected = false;
+
+    while (!connected) {
+        get_server_info();
+        connected = ConnectToServer();
+    }
+}
+
+void MainWindow::get_server_info()
+{
+    std::unique_ptr<CreateServerDialog> dialog(new CreateServerDialog());
+    auto result = dialog->exec();
+    ip       = dialog->ui->ip_address->text();
+    port     = dialog->ui->port->text().toInt();
+    username = dialog->ui->username->text();
 }
 
 int MainWindow::read_header()
@@ -62,14 +85,15 @@ void MainWindow::add_header(QString &str)
 
 bool MainWindow::ConnectToServer()
 {
-    socket->connectToHost("167.224.158.29", PORT);
+    socket->connectToHost(ip, port, QIODevice::ReadWrite);
     connect(socket, SIGNAL(readyRead()), this, SLOT(read_from_server()));
-    socket->open(QIODevice::ReadWrite);
-    if (socket->isOpen()) {
-        return true;
+    while (1) {
+        socket->waitForConnected(5000);
+        if (socket->state() == QAbstractSocket::ConnectedState)
+            return true;
+        else
+            return false;
     }
-
-    return false;
 }
 
 void MainWindow::on_send_button_clicked()
@@ -83,6 +107,7 @@ void MainWindow::on_send_button_clicked()
         return;
 
     msg = ui->send_buffer->toPlainText();
+    msg.prepend(username + ": ");
     format_msg(msg);
     if (socket->ConnectedState) {
         socket->write(msg.toStdString().c_str());
@@ -103,14 +128,7 @@ void MainWindow::read_from_server()
 
     body_len = read_header();
     msgstr   = read_body(body_len);
-    /*
-    while (bytesrd < msglen) {
-        result = socket->read(msglen - bytesrd);
-        data.append(result);
-        bytesrd += result.length();
-    }
-    msgstr = data;
-    */
+
     ui->chat_messages->appendPlainText(msgstr);
-    Beep(1000, 500);
+    //Beep(1000, 500);
 }
