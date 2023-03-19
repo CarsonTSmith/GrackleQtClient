@@ -40,5 +40,6 @@ private:
     int     read_header();
     QString read_body(const int body_len);
     void    do_connect_to_server();
+    void    do_bell(const QString &msg);
 };
 #endif // MAINWINDOW_H

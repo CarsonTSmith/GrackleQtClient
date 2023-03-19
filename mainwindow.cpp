@@ -9,8 +9,16 @@
 #include <QHostAddress>
 #include <QIODevice>
 #include <QString>
-#include <stdio.h>
 #include <QThread>
+#include <stdio.h>
+#ifdef _WIN32
+#include <utilapiset.h>
+#include <processthreadsapi.h>
+#elif _LINUX
+#include <stdlib.h>
+#endif
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,6 +49,14 @@ void MainWindow::get_server_info()
 {
     std::unique_ptr<CreateServerDialog> dialog(new CreateServerDialog());
     auto result = dialog->exec();
+    if (result == QDialog::Rejected) {
+#ifdef _WIN32
+        ExitProcess(0);
+#elif _LINUX
+        exit(0);
+#endif
+    }
+
     ip       = dialog->ui->ip_address->text();
     port     = dialog->ui->port->text().toInt();
     username = dialog->ui->username->text();
@@ -87,12 +103,12 @@ bool MainWindow::ConnectToServer()
 {
     socket->connectToHost(ip, port, QIODevice::ReadWrite);
     connect(socket, SIGNAL(readyRead()), this, SLOT(read_from_server()));
-    while (1) {
-        socket->waitForConnected(5000);
-        if (socket->state() == QAbstractSocket::ConnectedState)
-            return true;
-        else
-            return false;
+    socket->waitForConnected(5000);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+        return true;
+    } else {
+        socket->abort();
+        return false;
     }
 }
 
@@ -109,7 +125,7 @@ void MainWindow::on_send_button_clicked()
     msg = ui->send_buffer->toPlainText();
     msg.prepend(username + ": ");
     format_msg(msg);
-    if (socket->ConnectedState) {
+    if (socket->state() == QAbstractSocket::ConnectedState) {
         socket->write(msg.toStdString().c_str());
         ui->send_buffer->clear();
     }
@@ -123,12 +139,25 @@ void MainWindow::read_from_server()
     if (!socket)
         return;
 
-    if (!socket->isOpen())
+    if (socket->state() != QAbstractSocket::ConnectedState)
+        return;
+
+    if (socket->bytesAvailable() == 0)
         return;
 
     body_len = read_header();
     msgstr   = read_body(body_len);
 
     ui->chat_messages->appendPlainText(msgstr);
-    //Beep(1000, 500);
+    do_bell(msgstr);
+}
+
+void MainWindow::do_bell(const QString &msg)
+{
+    auto name_list = msg.split(":");
+    if (name_list[0] != username) {
+#ifdef _WIN32
+    Beep(1000, 500);
+#endif
+    }
 }

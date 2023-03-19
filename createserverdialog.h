@@ -20,7 +20,7 @@ public:
     ~CreateServerDialog();
 
 private slots:
-    void on_connect_button_clicked();
+    void on_connectButton_clicked();
 
 private:
     Ui::CreateServerDialog *ui;
