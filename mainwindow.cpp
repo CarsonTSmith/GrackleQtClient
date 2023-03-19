@@ -126,7 +126,7 @@ void MainWindow::on_send_button_clicked()
     msg.prepend(username + ": ");
     format_msg(msg);
     if (socket->state() == QAbstractSocket::ConnectedState) {
-        socket->write(msg.toStdString().c_str());
+        do_write(msg);
         ui->send_buffer->clear();
     }
 }
@@ -159,5 +159,18 @@ void MainWindow::do_bell(const QString &msg)
 #ifdef _WIN32
     Beep(1000, 500);
 #endif
+    }
+}
+
+void MainWindow::do_write(const QString &msg)
+{
+    int total = 0, result = 0;
+
+    while (total < msg.length()) {
+        result = socket->write(msg.toStdString().c_str(), msg.length() - total);
+        if (result == -1)
+            return; // write error occurred
+
+        total += result;
     }
 }
