@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>688</height>
+    <width>650</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -257,8 +257,8 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>296</width>
-                  <height>556</height>
+                  <width>458</width>
+                  <height>512</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -280,7 +280,8 @@ border-radius: 10px;</string>
                  <item>
                   <widget class="QPlainTextEdit" name="chat_messages">
                    <property name="styleSheet">
-                    <string notr="true">background-color: rgb(40, 40, 40);</string>
+                    <string notr="true">background-color: rgb(40, 40, 40);
+font: 10pt &quot;Noto Sans CJK JP&quot;;</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
@@ -293,6 +294,9 @@ border-radius: 10px;</string>
                    </property>
                    <property name="readOnly">
                     <bool>true</bool>
+                   </property>
+                   <property name="textInteractionFlags">
+                    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
                    </property>
                   </widget>
                  </item>
@@ -389,7 +393,7 @@ border-radius: 10px;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>296</width>
+                  <width>458</width>
                   <height>80</height>
                  </rect>
                 </property>

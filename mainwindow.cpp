@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include "createserverdialog.h"
 
@@ -99,8 +99,8 @@ void MainWindow::add_timestamp(QString &str)
 {
     QDateTime date = QDateTime::currentDateTime();
     QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
-    QByteArray formattedTimeMsg = formattedTime.toLocal8Bit();
-    str.prepend(formattedTimeMsg + "\n\n");
+    QByteArray formattedTimeMsg = " " + formattedTime.toLocal8Bit();
+    str.prepend(formattedTimeMsg + "\n");
 }
 
 void MainWindow::add_header(QString &str)
@@ -133,7 +133,7 @@ void MainWindow::on_send_button_clicked()
         return;
 
     msg = ui->send_buffer->toPlainText();
-    msg.prepend(username + ": ");
+    msg.prepend(username + ":\n");
     format_msg(msg);
     if (socket->state() == QAbstractSocket::ConnectedState) {
         do_write(msg);
@@ -152,14 +152,13 @@ void MainWindow::read_from_server()
     if (socket->state() != QAbstractSocket::ConnectedState)
         return;
 
-    if (socket->bytesAvailable() == 0)
-        return;
+    while (socket->bytesAvailable() > 0) {
+        body_len = read_header();
+        msgstr   = read_body(body_len);
 
-    body_len = read_header();
-    msgstr   = read_body(body_len);
-
-    ui->chat_messages->appendPlainText(msgstr);
-    do_bell(msgstr);
+        ui->chat_messages->appendPlainText("\n" + msgstr);
+        do_bell(msgstr);
+    }
 }
 
 void MainWindow::do_bell(const QString &msg)
