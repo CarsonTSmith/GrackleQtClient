@@ -3,12 +3,16 @@
 
 #include "createserverdialog.h"
 
+#include <iostream>
 #include <memory>
 #include <QAbstractSocket>
 #include <QByteArray>
 #include <QDateTime>
+#include <QDir>
 #include <QHostAddress>
 #include <QIODevice>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QString>
 #include <QThread>
 #include <stdio.h>
@@ -91,16 +95,8 @@ QString MainWindow::read_body(const int body_len)
 
 void MainWindow::format_msg(QString &str)
 {
-    add_timestamp(str);
+    str = format_outgoing_msg(str);
     add_header(str);
-}
-
-void MainWindow::add_timestamp(QString &str)
-{
-    QDateTime date = QDateTime::currentDateTime();
-    QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
-    QByteArray formattedTimeMsg = " " + formattedTime.toLocal8Bit();
-    str.prepend(formattedTimeMsg + "\n");
 }
 
 void MainWindow::add_header(QString &str)
@@ -133,7 +129,6 @@ void MainWindow::on_send_button_clicked()
         return;
 
     msg = ui->send_buffer->toPlainText();
-    msg.prepend(username + ":\n");
     format_msg(msg);
     if (socket->state() == QAbstractSocket::ConnectedState) {
         do_write(msg);
@@ -153,22 +148,41 @@ void MainWindow::read_from_server()
         return;
 
     while (socket->bytesAvailable() > 0) {
-        body_len = read_header();
-        msgstr   = read_body(body_len);
-
-        ui->chat_messages->appendPlainText("\n" + msgstr);
-        do_bell(msgstr);
+        body_len              = read_header();
+        msgstr                = read_body(body_len);
+        QJsonObject json_body = format_incoming_msg(msgstr);
+        ui->chat_messages->appendPlainText("\n" + json_body["timestamp"].toString() + "\n" + json_body["username"].toString() + ": " + json_body["message"].toString());
+        do_notification_sound(json_body["username"].toString());
     }
 }
 
-void MainWindow::do_bell(const QString &msg)
+QString MainWindow::format_outgoing_msg(const QString& msg)
 {
-    auto name_list = msg.split(":");
-    if (name_list[0] != username) {
-#ifdef _WIN32
-    Beep(1000, 500);
-#endif
+    QJsonObject obj {
+        {"path", "/chat/send"},
+        {"client", "Grackle Desktop"},
+        {"username", username},
+        {"message", msg}
+    };
+    QJsonDocument doc(obj);
+    QString str_json(doc.toJson(QJsonDocument::Compact));
+    return str_json;
+}
+
+QJsonObject MainWindow::format_incoming_msg(const QString& body)
+{
+    QJsonObject obj;
+
+    QJsonDocument doc = QJsonDocument::fromJson(body.toUtf8());
+
+    // check validity of the document
+    if(!doc.isNull()) {
+        if(doc.isObject()) {
+            obj = doc.object();
+        }
     }
+
+    return obj;
 }
 
 void MainWindow::do_write(const QString &msg)
@@ -182,4 +196,13 @@ void MainWindow::do_write(const QString &msg)
 
         total += result;
     }
+}
+
+void MainWindow::do_notification_sound(const QString &username_from_msg)
+{
+    if (username_from_msg == username)
+        return; // you sent the message, dont notify on your own msgs
+
+    QString notification_sound_path = QDir::current().absolutePath() + "/sounds/notification_sound.mp3";
+    sound_player.play(notification_sound_path);
 }

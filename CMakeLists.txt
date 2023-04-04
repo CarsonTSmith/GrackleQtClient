@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network Multimedia)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Network Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Multimedia)
 
 set(PROJECT_SOURCES
@@ -20,10 +20,14 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         voicechat.h
+        sendboxtextedit.h
+        audio_player.h
         createserverdialog.cpp
         createserverdialog.h
         createserverdialog.ui
         voicechat.cpp
+        sendboxtextedit.cpp
+        audio_player.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
