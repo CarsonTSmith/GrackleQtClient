@@ -3,6 +3,7 @@
 
 #include "createserverdialog.h"
 
+#include <QDebug>
 #include <iostream>
 #include <memory>
 #include <QAbstractSocket>
@@ -16,6 +17,7 @@
 #include <QString>
 #include <QThread>
 #include <stdio.h>
+#include <unistd.h>
 #ifdef _WIN32
 #include <utilapiset.h>
 #include <processthreadsapi.h>
@@ -129,6 +131,9 @@ void MainWindow::on_send_button_clicked()
         return;
 
     msg = ui->send_buffer->toPlainText();
+    if (msg.isEmpty())
+        return;
+
     format_msg(msg);
     if (socket->state() == QAbstractSocket::ConnectedState) {
         do_write(msg);
@@ -189,8 +194,18 @@ void MainWindow::do_write(const QString &msg)
 {
     int total = 0, result = 0;
 
+    // for testing the server non-blocking tcp socket
+    // simulates sending the tcp bytes in two parts
+    /*
+    auto w1 = socket->write(msg.toStdString().c_str(), 10);
+    socket->flush();
+    qDebug() << w1;
+    sleep(10);
+    socket->write(msg.toStdString().c_str() + 10, msg.length() - 10);
+    */
+
     while (total < msg.length()) {
-        result = socket->write(msg.toStdString().c_str(), msg.length() - total);
+        result = socket->write(msg.toStdString().c_str() + total, msg.length() - total);
         if (result == -1)
             return; // write error occurred
 
