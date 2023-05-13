@@ -1,7 +1,22 @@
 #include "voicechat.h"
 
-VoiceChat::VoiceChat()
+#include <QBuffer>
+#include <QMediaContent>
+#include <QMediaPlayer>
+
+VoiceChat::VoiceChat() : audio_in(std::make_unique<QAudioInput>()),
+                         audio_out(std::make_unique<QAudioOutput>()),
+                         media_player(std::make_unique<QMediaPlayer>())
 {
-    audio_in = std::unique_ptr<QAudioInput>();
-    audio_out = std::unique_ptr<QAudioOutput>();
+
+}
+
+
+
+void VoiceChat::play_buffer(QByteArray buf)
+{
+    QBuffer media_stream(&buf);
+    media_stream.open(QIODevice::ReadOnly);
+    media_player->setMedia(QMediaContent(), &media_stream);
+    media_player->play();
 }
